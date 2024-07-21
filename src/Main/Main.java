@@ -1,12 +1,13 @@
 package Main;
 import Interfaces.Calculation;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main implements Calculation {
     //variables
     private String totalPurchases;
     private double cardLimit;
-    private int products;
     private double priceProducts;
 
     //empty constructor
@@ -23,9 +24,7 @@ public class Main implements Calculation {
     public double getPriceProducts() {
         return priceProducts;
     }
-    public int getProducts() {
-        return products;
-    }
+
 
     @Override
     public void creditLimit() {
@@ -41,11 +40,17 @@ public class Main implements Calculation {
     }
     public void purchase() {
         Scanner scannerPurshase = new Scanner(System.in);
+        Scanner scannerOption = new Scanner(System.in);
+        List<String> productsList = new ArrayList<>();
+        List<Double> purshasedPrices = new ArrayList<>();
 
         System.out.println("Type what you want to buy:");
-        totalPurchases = scannerPurshase.nextLine();
+        productsList.add(scannerPurshase.nextLine());
         System.out.println("Type the price of product:");
-        this.cardLimit -= scannerPurshase.nextDouble();
+        double totalPreco = scannerPurshase.nextDouble();
+        this.cardLimit = cardLimit - totalPreco;
+        purshasedPrices.add(totalPreco);
+
         System.out.println("Current credit: " +getCardLimit());
 
         if (priceProducts > this.getCardLimit()) {
@@ -54,7 +59,6 @@ public class Main implements Calculation {
         }
 
         System.out.println("Type 0 to quit and 1 to continue:");
-        Scanner scannerOption = new Scanner(System.in);
         int option = 0;
         option = scannerOption.nextInt();
         if (option == 0) {
@@ -63,6 +67,14 @@ public class Main implements Calculation {
                 purchase();
             } else {
                 System.out.println("Error! Choice a valid option");
+            }
+
+        for (String products : productsList) {
+            System.out.println("Products: " +products);
+        }
+
+        for (Double prices : purshasedPrices) {
+            System.out.println("Products prices: " + prices);
         }
     }
 
