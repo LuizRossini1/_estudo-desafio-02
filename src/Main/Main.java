@@ -1,7 +1,9 @@
 package Main;
+import Interfaces.Calculation;
+
 import java.util.Scanner;
 
-public class Main {
+public class Main implements Calculation {
     //variables
     private int totalPurchases;
     private double cardLimit;
@@ -20,6 +22,14 @@ public class Main {
         return cardLimit;
     }
 
+    Scanner scanner = new Scanner(System.in);
+
+
+    @Override
+    public void creditCalculation() {
+        cardLimit = scanner.nextDouble();
+    }
+
     public static void main(String[] args) {
         //defining scanner
         Scanner scanner = new Scanner(System.in);
@@ -32,6 +42,8 @@ public class Main {
                         "Type your card limit: ";
 
         System.out.println(menu);
-    }
 
+        myAccount.creditCalculation();
+        System.out.println("Your card limit is: U$" +myAccount.getCardLimit());
+    }
 }
