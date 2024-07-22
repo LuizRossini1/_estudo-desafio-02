@@ -29,7 +29,7 @@ public class Main implements Calculation {
     @Override
     public void creditLimit(Scanner scannerCredit) {
         String menu =
-                "Welcomete to Alura shop! \n" +
+                "Welcome to Alura shop! \n" +
                         "Type your card limit: ";
 
         System.out.println(menu);
@@ -71,7 +71,7 @@ public class Main implements Calculation {
         } else {
             System.out.println("Products purchased:");
             for (int i = 0; i < productsList.size(); i++) {
-                System.out.println(productsList.get(i) + " - " +purshasedPrices.get(i));
+                System.out.println(productsList.get(i) + " - U$" +purshasedPrices.get(i));
             }
         }
         System.out.println("************************************");
