@@ -10,10 +10,6 @@ public class Main implements Calculation {
     private double cardLimit;
     private double priceProducts;
 
-    //empty constructor
-    public Main() {
-    }
-
     //getters
     public String getTotalPurchases() {
         return totalPurchases;
@@ -25,7 +21,6 @@ public class Main implements Calculation {
         return priceProducts;
     }
 
-
     @Override
     public void creditLimit() {
         Scanner scannerCredit = new Scanner(System.in);
@@ -36,13 +31,10 @@ public class Main implements Calculation {
 
         System.out.println(menu);
         cardLimit = scannerCredit.nextDouble();
-        System.out.println("Your card limit is: U$" +this.getCardLimit());
+        System.out.println("Your card limit is: U$" + this.getCardLimit());
     }
-    public void purchase() {
+    public void purchase(List<String> productsList, List<Double> purshasedPrices) {
         Scanner scannerPurshase = new Scanner(System.in);
-        Scanner scannerOption = new Scanner(System.in);
-        List<String> productsList = new ArrayList<>();
-        List<Double> purshasedPrices = new ArrayList<>();
 
         System.out.println("Type what you want to buy:");
         productsList.add(scannerPurshase.nextLine());
@@ -50,39 +42,43 @@ public class Main implements Calculation {
         double totalPreco = scannerPurshase.nextDouble();
         this.cardLimit = cardLimit - totalPreco;
         purshasedPrices.add(totalPreco);
-
-        System.out.println("Current credit: " +getCardLimit());
+        System.out.println("Current credit: " + getCardLimit());
 
         if (priceProducts > this.getCardLimit()) {
             System.out.println("Insufficient credit!");
             return;
         }
-
-        System.out.println("Type 0 to quit and 1 to continue:");
-        int option = 0;
-        option = scannerOption.nextInt();
-        if (option == 0) {
-            System.out.println("Closing app...");
-            } else if (option == 1) {
-                purchase();
-            } else {
-                System.out.println("Error! Choice a valid option");
-            }
-
-        for (String products : productsList) {
-            System.out.println("Products: " +products);
-        }
-
-        for (Double prices : purshasedPrices) {
-            System.out.println("Products prices: " + prices);
-        }
     }
 
     public static void main(String[] args) {
         //objects
+        List<String> productsList = new ArrayList<>();
+        List<Double> purshasedPrices = new ArrayList<>();
         var myAccount = new Main();
 
         myAccount.creditLimit();
-        myAccount.purchase();
+
+        Scanner scannerOption = new Scanner(System.in);
+        int option = 0;
+        while (option != 0 || option != 1) {
+            System.out.println("Type '0' to quit and '1' to continue:");
+            option = scannerOption.nextInt();
+            if (option == 0) {
+                System.out.println("Clossing the app...");
+                break;
+            } else if (option == 1) {
+                myAccount.purchase(productsList, purshasedPrices);
+            } else {
+                System.out.println("Error! Type a valid option");
+            }
+        }
+
+        System.out.println("************************************");
+        if (productsList == null) {
+            System.out.println("nada comprado");
+        } else {
+            System.out.println("Products purchased: " + productsList);
+        }
+        System.out.println("************************************");
     }
 }
