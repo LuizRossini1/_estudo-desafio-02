@@ -10,6 +10,10 @@ public class Main implements Calculation {
     private double cardLimit;
     private double priceProducts;
 
+    //empty contructor
+    public Main() {
+    }
+
     //getters
     public String getTotalPurchases() {
         return totalPurchases;
@@ -22,9 +26,7 @@ public class Main implements Calculation {
     }
 
     @Override
-    public void creditLimit() {
-        Scanner scannerCredit = new Scanner(System.in);
-
+    public void creditLimit(Scanner scannerCredit) {
         String menu =
                 "Welcomete to Alura shop! \n" +
                         "Type your card limit: ";
@@ -52,11 +54,12 @@ public class Main implements Calculation {
 
     public static void main(String[] args) {
         //objects
+        Scanner scannerCredit = new Scanner(System.in);
         List<String> productsList = new ArrayList<>();
         List<Double> purshasedPrices = new ArrayList<>();
         var myAccount = new Main();
 
-        myAccount.creditLimit();
+        myAccount.creditLimit(scannerCredit);
 
         Scanner scannerOption = new Scanner(System.in);
         int option = 0;
