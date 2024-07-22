@@ -35,11 +35,9 @@ public class Main implements Calculation {
         cardLimit = scannerCredit.nextDouble();
         System.out.println("Your card limit is: U$" + this.getCardLimit());
     }
-    public void purchase(List<String> productsList, List<Double> purshasedPrices) {
-        Scanner scannerPurshase = new Scanner(System.in);
-
+    public void purchase(List<String> productsList, List<Double> purshasedPrices, Scanner scannerPurshase) {
         System.out.println("Type what you want to buy:");
-        productsList.add(scannerPurshase.nextLine());
+        productsList.add(scannerPurshase.next());
         System.out.println("Type the price of product:");
         double totalPreco = scannerPurshase.nextDouble();
         this.cardLimit = cardLimit - totalPreco;
@@ -51,37 +49,41 @@ public class Main implements Calculation {
             return;
         }
     }
-
-    public static void main(String[] args) {
-        //objects
-        Scanner scannerCredit = new Scanner(System.in);
-        List<String> productsList = new ArrayList<>();
-        List<Double> purshasedPrices = new ArrayList<>();
-        var myAccount = new Main();
-
-        myAccount.creditLimit(scannerCredit);
-
-        Scanner scannerOption = new Scanner(System.in);
+    public void loopPurchase(Scanner scannerOption, List<String> productsList,
+                             List<Double> purshasedPrices, Scanner scannerPurshase) {
         int option = 0;
         while (option != 0 || option != 1) {
             System.out.println("Type '0' to quit and '1' to continue:");
             option = scannerOption.nextInt();
             if (option == 0) {
-                System.out.println("Clossing the app...");
-                break;
-            } else if (option == 1) {
-                myAccount.purchase(productsList, purshasedPrices);
+                System.out.println("Closing app...");
+                return;
             } else {
-                System.out.println("Error! Type a valid option");
+                this.purchase(productsList, purshasedPrices, scannerPurshase);
             }
         }
-
+    }
+    public void displayPurchase(List<String> productsList) {
         System.out.println("************************************");
-        if (productsList == null) {
-            System.out.println("nada comprado");
+        if (productsList == null || productsList.isEmpty()) {
+            System.out.println("Nothing purchased");
         } else {
             System.out.println("Products purchased: " + productsList);
         }
         System.out.println("************************************");
+    }
+
+    public static void main(String[] args) {
+        //objects
+        Scanner scannerCredit = new Scanner(System.in);
+        Scanner scannerPurshase = new Scanner(System.in);
+        Scanner scannerOption = new Scanner(System.in);
+        List<String> productsList = new ArrayList<>();
+        List<Double> purshasedPrices = new ArrayList<>();
+        var myAccount = new Main();
+
+        myAccount.creditLimit(scannerCredit);
+        myAccount.loopPurchase(scannerOption, productsList, purshasedPrices, scannerPurshase);
+        myAccount.displayPurchase(productsList);
     }
 }
