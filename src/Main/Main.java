@@ -63,12 +63,15 @@ public class Main implements Calculation {
             }
         }
     }
-    public void displayPurchase(List<String> productsList) {
+    public void displayPurchase(List<String> productsList, List<Double> purshasedPrices) {
         System.out.println("************************************");
         if (productsList == null || productsList.isEmpty()) {
             System.out.println("Nothing purchased");
         } else {
-            System.out.println("Products purchased: " + productsList);
+            System.out.println("Products purchased:");
+            for (int i = 0; i < productsList.size(); i++) {
+                System.out.println(productsList.get(i) + " - " +purshasedPrices.get(i));
+            }
         }
         System.out.println("************************************");
     }
@@ -84,6 +87,6 @@ public class Main implements Calculation {
 
         myAccount.creditLimit(scannerCredit);
         myAccount.loopPurchase(scannerOption, productsList, purshasedPrices, scannerPurshase);
-        myAccount.displayPurchase(productsList);
+        myAccount.displayPurchase(productsList, purshasedPrices);
     }
 }
