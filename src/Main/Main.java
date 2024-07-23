@@ -36,13 +36,13 @@ public class Main implements Calculation {
         cardLimit = scannerCredit.nextDouble();
         System.out.println("Your card limit is: U$" + this.getCardLimit());
     }
-    public void purchase(List<String> productsList, List<Double> purshasedPrices, Scanner scannerPurshase) {
+    public void purchase(List<String> productsList, List<Integer> purshasedPrices, Scanner scannerPurshase) {
         System.out.println("Type what you want to buy:");
         productsList.add(scannerPurshase.next());
         System.out.println("Type the price of product:");
-        double totalPreco = scannerPurshase.nextDouble();
-        this.cardLimit = cardLimit - totalPreco;
-        purshasedPrices.add(totalPreco);
+        int totalPrice = scannerPurshase.nextInt();
+        this.cardLimit = cardLimit - totalPrice;
+        purshasedPrices.add(totalPrice);
         System.out.println("Current credit: " + getCardLimit());
 
         if (priceProducts > this.getCardLimit()) {
@@ -51,7 +51,7 @@ public class Main implements Calculation {
         }
     }
     public void loopPurchase(Scanner scannerOption, List<String> productsList,
-                             List<Double> purshasedPrices, Scanner scannerPurshase) {
+                             List<Integer> purshasedPrices, Scanner scannerPurshase) {
         int option = 0;
         while (option != 0 || option != 1) {
             System.out.println("Type '0' to quit and '1' to continue:");
@@ -64,14 +64,19 @@ public class Main implements Calculation {
             }
         }
     }
-    public void displayPurchase(List<String> productsList, List<Double> purshasedPrices) {
+    public void displayPurchase(List<String> productsList, List<Integer> purshasedPrices) {
         System.out.println("************************************");
         if (productsList == null || productsList.isEmpty()) {
             System.out.println("Nothing purchased");
         } else {
             System.out.println("Products purchased:");
-            for (int i = 0; i < productsList.size(); i++) {
-                System.out.println(productsList.get(i) + " - U$" +purshasedPrices.get(i));
+            List<Integer> indices = new ArrayList<>();
+            for (int i = 0; i < purshasedPrices.size(); i++) {
+                indices.add(i);
+            }
+            indices.sort(Comparator.comparing(purshasedPrices::get).reversed());
+            for (int index : indices) {
+                System.out.println(productsList.get(index) + " - U$" + purshasedPrices.get(index));
             }
         }
         System.out.println("************************************");
@@ -83,7 +88,7 @@ public class Main implements Calculation {
         Scanner scannerPurshase = new Scanner(System.in);
         Scanner scannerOption = new Scanner(System.in);
         List<String> productsList = new ArrayList<>();
-        List<Double> purshasedPrices = new ArrayList<>();
+        List<Integer> purshasedPrices = new ArrayList<>();
         var myAccount = new Main();
 
         myAccount.creditLimit(scannerCredit);
