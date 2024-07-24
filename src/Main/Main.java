@@ -65,7 +65,7 @@ public class Main implements Calculation {
         }
     }
     public void displayPurchase(List<String> productsList, List<Integer> purshasedPrices) {
-        System.out.println("************************************");
+        System.out.println("*".repeat(36));
         if (productsList == null || productsList.isEmpty()) {
             System.out.println("Nothing purchased");
         } else {
@@ -79,7 +79,7 @@ public class Main implements Calculation {
                 System.out.println(productsList.get(index) + " - U$" + purshasedPrices.get(index));
             }
         }
-        System.out.println("************************************");
+        System.out.println("*".repeat(36));
     }
 
     public static void main(String[] args) {
