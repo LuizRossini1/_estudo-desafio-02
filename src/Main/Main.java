@@ -37,9 +37,9 @@ public class Main implements Calculation {
         System.out.println("Your card limit is: U$" + this.getCardLimit());
     }
     public void purchase(List<String> productsList, List<Integer> purshasedPrices, Scanner scannerPurshase) {
-        System.out.println("Type what you want to buy:");
+        System.out.println("Type what you want to buy: ");
         productsList.add(scannerPurshase.next());
-        System.out.println("Type the price of product:");
+        System.out.println("Type the price of product: ");
         int totalPrice = scannerPurshase.nextInt();
         this.cardLimit = cardLimit - totalPrice;
         purshasedPrices.add(totalPrice);
